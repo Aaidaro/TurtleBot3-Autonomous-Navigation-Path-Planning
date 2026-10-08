@@ -1,0 +1,154 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="narrow_passage_world">
+    <physics name="default_physics" default="0" type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <scene>
+      <ambient>0.6 0.6 0.6 1</ambient>
+      <background>0.7 0.8 0.9 1</background>
+      <shadows>true</shadows>
+    </scene>
+    <light name="sun" type="directional">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range> 1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.4 0.2 -0.9</direction>
+    </light>
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane><normal>0 0 1</normal><size>20.0 20.0</size></plane>
+          </geometry>
+          <surface><friction><ode><mu>100</mu><mu2>50</mu2></ode></friction></surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane><normal>0 0 1</normal><size>20.0 20.0</size></plane>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="passage_geometry">
+      <static>true</static>
+
+      <!-- Outer Bounding Box (10x10 meters) -->
+      <link name="wall_n"><pose>5 0 0.5 0 0 0</pose><collision name="cn"><geometry><box><size>0.2 10 1</size></box></geometry></collision>
+      <visual name="vn"><geometry><box><size>0.2 10 1</size></box>
+      </geometry>
+        <material>
+            <ambient>0.5 0.5 0.55 1</ambient>
+            <diffuse>0.6 0.6 0.65 1</diffuse>
+        </material>
+      </visual>
+      </link>
+      <link name="wall_s"><pose>-5 0 0.5 0 0 0</pose><collision name="cs"><geometry><box><size>0.2 10 1</size></box></geometry></collision>
+      <visual name="vs"><geometry>
+      <box><size>0.2 10 1</size></box>
+      </geometry>
+        <material>
+            <ambient>0.5 0.5 0.55 1</ambient>
+            <diffuse>0.6 0.6 0.65 1</diffuse>
+        </material>
+      </visual></link>
+      <link name="wall_e"><pose>0 5 0.5 0 0 0</pose><collision name="ce"><geometry><box><size>10 0.2 1</size></box></geometry></collision><visual name="ve"><geometry><box><size>10 0.2 1</size></box></geometry>
+              <material>
+            <ambient>0.5 0.5 0.55 1</ambient>
+            <diffuse>0.6 0.6 0.65 1</diffuse>
+        </material>
+      </visual></link>
+      <link name="wall_w"><pose>0 -5 0.5 0 0 0</pose><collision name="cw"><geometry><box><size>10 0.2 1</size></box></geometry></collision><visual name="vw"><geometry><box><size>10 0.2 1</size></box></geometry>
+              <material>
+            <ambient>0.5 0.5 0.55 1</ambient>
+            <diffuse>0.6 0.6 0.65 1</diffuse>
+        </material>
+      </visual></link>
+
+      <!-- Left Block (y = 2.1 leaves edge at y = 0.1) -->
+      <link name="block_left">
+        <pose>2.0 2.15 0.5 0 0 0</pose>
+        <collision name="col_bl"><geometry><box><size>1.0 4.0 1</size></box></geometry></collision>
+        <visual name="vis_bl"><geometry><box><size>1.0 4.0 1</size></box></geometry>
+        <material>
+            <ambient>0.5 0.5 0.55 1</ambient>
+            <diffuse>0.6 0.6 0.65 1</diffuse>
+        </material>
+        </visual>
+      </link>
+
+      <!-- Right Block (y = -2.1 leaves edge at y = -0.1) -->
+      <link name="block_right">
+        <pose>2.0 -2.15 0.5 0 0 0</pose>
+        <collision name="col_br"><geometry><box><size>1.0 4.0 1</size></box></geometry></collision>
+        <visual name="vis_br"><geometry><box><size>1.0 4.0 1</size></box></geometry>
+      <material>
+        <ambient>0.5 0.5 0.55 1</ambient>
+        <diffuse>0.6 0.6 0.65 1</diffuse>
+      </material>
+        </visual>
+      </link>
+
+      <!-- Dummy Features for Cartographer -->
+      <link name="feat_1">
+        <pose>0.5 3.0 0.5 0 0 0</pose>
+        <collision name="cf1"><geometry><box><size>0.5 0.5 1</size></box></geometry></collision>
+        <visual name="vf1"><geometry><box><size>0.5 0.5 1</size></box></geometry>
+        <material>
+            <ambient>0.5 0.5 0.55 1</ambient>
+            <diffuse>0.6 0.6 0.65 1</diffuse>
+        </material>
+        </visual>
+      </link>
+      <link name="feat_2">
+        <pose>3.5 -3.0 0.5 0 0 0</pose>
+        <collision name="cf2"><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry></collision>
+        <visual name="vf2"><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry>
+        <material>
+            <ambient>0.5 0.5 0.55 1</ambient>
+            <diffuse>0.6 0.6 0.65 1</diffuse>
+        </material>
+        </visual>
+      </link>
+
+    </model>
+
+    <!-- Start Marker -->
+    <model name="start_marker">
+      <static>true</static>
+      <pose>0 0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><cylinder><radius>0.3</radius><length>0.02</length></cylinder></geometry>
+          <material><ambient>0 1 0 1</ambient><diffuse>0 1 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+     <!-- Goal Marker-->
+    <model name="goal_marker">
+      <static>true</static>
+      <pose>4 0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><cylinder><radius>0.3</radius><length>0.02</length></cylinder></geometry>
+          <material><ambient>1 0 0 1</ambient><diffuse>1 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+  </world>
+</sdf>
