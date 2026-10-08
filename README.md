@@ -23,6 +23,15 @@
 
 ---
 
+## Authors & Contributors
+
+This project was jointly developed by:
+
+- **[AmirHesam Kamalpour](https://github.com/AmirHesamKamalpour)**
+- **[Aida roshani](https://github.com/Aaidaro)**
+
+Both authors collaboratively contributed to the design, implementation, and development of this project.
+
 ## Overview
 
 This project investigates **three autonomous navigation strategies** for the **TurtleBot3 Burger** in custom Gazebo environments:
@@ -47,7 +56,6 @@ The repository includes **three custom Gazebo worlds**, their **static occupancy
 
 ## Contents
 
-- [System architecture](#system-architecture)
 - [Algorithms](#algorithms)
 - [Simulation environments](#simulation-environments)
 - [Installation](#installation)
@@ -59,41 +67,6 @@ The repository includes **three custom Gazebo worlds**, their **static occupancy
 - [Troubleshooting and limitations](#troubleshooting-and-limitations)
 - [References](#references)
 
-## System architecture
-
-The project provides **two distinct navigation pipelines**:
-
-```text
-GLOBAL NAVIGATION (A* / RRT*)
-Static map ──► Nav2 map server ──► Occupancy-grid inflation
-                                           │
-                                           ▼
-                                   A* or RRT* planner
-                                           │
-                                           ▼
-                           Simplification + collision-safe smoothing
-                                           │
-                                           ▼
-                               Waypoint densification
-                                           │
-                                           ▼
-                              Pure Pursuit path tracker
-                                           │
-                                           ▼
-                                        /cmd_vel
-
-REACTIVE NAVIGATION (APF)
-/scan ──────────┐
-                ├──► Attractive + Gaussian repulsive forces
-TF / goal pose ─┘                      │
-                                      ▼
-                           Safety and velocity mapping
-                                      │
-                                      ▼
-                                   /cmd_vel
-```
-
-**Note:** A* and RRT* are **global planners**, while APF is a **reactive controller**; comparing their computation times therefore means comparing different types of computation. Global planning produces a complete route before execution, whereas APF continually updates the motion command.
 
 ## Algorithms
 
@@ -118,9 +91,12 @@ Here, $r$ is the grid resolution (**0.05 m/cell** in the supplied maps); $g(n)$ 
 RRT* expands a collision-free tree toward sampled locations. Unlike basic RRT, it chooses a low-cost parent among nearby nodes and **rewires** existing branches when a better connection becomes available.
 
 ```math
-q_{\mathrm{parent}}^{*} =
-\underset{q\in\mathcal{N}(q_{\mathrm{new}})}{\operatorname{arg\,min}}
-\left[J(q) + \lVert q-q_{\mathrm{new}}\rVert_2\right]
+q_{\mathrm{parent}}^{*}
+=
+\underset{q \in \mathcal{N}(q_{\mathrm{new}})}{\mathrm{arg\,min}}
+\left[
+J(q) + \left\|q-q_{\mathrm{new}}\right\|_2
+\right]
 ```
 
 The implementation uses a fixed iteration budget, goal-biased sampling, a configurable extension step, and a neighborhood radius for rewiring. Line-of-sight collision checking is performed against the inflated occupancy grid.
@@ -490,5 +466,3 @@ The simulation launches target **Gazebo Classic** (`gzserver`/`gzclient`) throug
 - [GitHub — Rendering mathematical expressions in Markdown](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions)
 
 ---
-
-**Academic context:** Advanced Robotics, Project 4. Figures and numerical results are taken from the materials supplied with this project. The ROS package metadata declares the software license as **Apache-2.0**; include an appropriate `LICENSE` file when publishing the repository.
