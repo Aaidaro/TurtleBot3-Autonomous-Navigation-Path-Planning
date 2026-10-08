@@ -32,7 +32,16 @@ This project was jointly developed by:
 
 Both authors collaboratively contributed to the design, implementation, and development of this project.
 
-School of Electrical and Computer Engineering, University of Tehran, 2026.
+<p align="left">
+  <img
+    src="https://thumb.wikimedia.org/wikipedia/en/thumb/f/fd/University_of_Tehran_logo.svg/1280px-University_of_Tehran_logo.svg.png"
+    alt="University of Tehran"
+    width="45"
+    align="center"
+  />
+  &nbsp;&nbsp;
+  <strong>School of Electrical and Computer Engineering, University of Tehran — 2026</strong>
+</p>
 
 ## Overview
 
