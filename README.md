@@ -32,6 +32,8 @@ This project was jointly developed by:
 
 Both authors collaboratively contributed to the design, implementation, and development of this project.
 
+School of Electrical and Computer Engineering, University of Tehran, 2026.
+
 ## Overview
 
 This project investigates **three autonomous navigation strategies** for the **TurtleBot3 Burger** in custom Gazebo environments:
